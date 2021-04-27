@@ -12,8 +12,8 @@ server.use(express.static('./public'));
 server.set('view engine', 'ejs');
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
-const client = new pg.Client(process.env.DATABASE_URL);
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+// const client = new pg.Client(process.env.DATABASE_URL);
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 
 
 server.get('/' , homePage);

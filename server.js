@@ -12,8 +12,8 @@ server.use(express.static('./public'));
 server.set('view engine', 'ejs');
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
-const client = new pg.Client(process.env.DATABASE_URL);
-// const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+// const client = new pg.Client(process.env.DATABASE_URL);
+const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 
 
 server.get('/' , homePage);
@@ -98,7 +98,6 @@ function details (req,res){
 function update(req,res){
   let id = req.params.id;
   let {name,price,image,description}= req.body;
-  console.log(hello);
 
   let SQL = 'UPDATE TABLE makeup SET name=$1,price=$2,image=$3,description=$4 WHERE id=$5;';
   let safeValue = [name,price,image,description,id];

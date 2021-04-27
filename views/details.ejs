@@ -15,8 +15,8 @@
                 <h2><%= product.name %> </h2>
                 <p><%= product.price %> </p>
                 <p> <%= product.description %> </p>
-                <form action="/details/<%=product.id%>?method=DELETE" method = 'POST' > Delete</form>
-                <form action="/details/<%=product.id%>?method=PUT" class="form" method = 'POST' > 
+                <form action="/details/<%=product.id%>?_method=DELETE" method = 'POST' > Delete</form>
+                <form action="/details/<%=product.id%>?_method=PUT" class="form" method = 'POST' > 
                     <input type="text"  name="name" value="<%= product.name %>" >
                     <input type="text" name="image" value="<%= product.image %>" >
                       <textarea name="description"  cols="30" rows="10" hidden> <%= product.description %></textarea>

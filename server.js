@@ -12,8 +12,8 @@ server.use(express.static('./public'));
 server.set('view engine', 'ejs');
 const PORT = process.env.PORT;
 const DATABASE_URL = process.env.DATABASE_URL;
-// const client = new pg.Client(process.env.DATABASE_URL);
-const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const client = new pg.Client(process.env.DATABASE_URL);
+// const client = new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
 
 
 server.get('/' , homePage);
@@ -23,6 +23,8 @@ server.post('/DB',saveToDB);
 server.get('/mycard',myCard);
 server.post('/details/:id' ,details);
 server.put('/details/:id' ,update);
+server.delete('/details/:id' ,removef);
+
 
 
 function homePage(req,res){
@@ -106,6 +108,19 @@ function update(req,res){
       res.redirect(`/details/${id}`);
     });
 }
+
+
+function removef(req,res){
+    let id = req.params.id;
+    let {name,price,image,description}= req.body;
+  
+    let SQL = 'DELETE FROM makeup WHERE id=$1;';
+    let safeValue = [name,price,image,description,id];
+    client.query(SQL,safeValue)
+      .then(data =>{
+        res.redirect(`/mycard`);
+      });
+  }
 
 function Product (data){
   this.name = data.name;
